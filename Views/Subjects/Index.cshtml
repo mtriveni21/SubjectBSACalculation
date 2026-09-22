@@ -1,0 +1,49 @@
+@model IEnumerable<SubjectBSACalculation.Models.Subject>
+@{
+    ViewData["Title"] = "Saved Subjects";
+}
+
+<h2>Saved Subjects</h2>
+
+<p>
+    <a asp-action="CreateSubject" class="btn btn-primary">Add New Subject</a>
+</p>
+
+@if (!Model.Any())
+{
+    <p>No subjects saved yet.</p>
+}
+else
+{
+    <table class="table table-striped" style="max-width:900px">
+        <thead>
+            <tr>
+                <th>Subject ID</th>
+                <th>Height (cm)</th>
+                <th>Weight (kg)</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>BSA Formula</th>
+                <th>BSA Result (m&sup2;)</th>
+                <th>Created (UTC)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var subject in Model)
+            {
+                <tr>
+                    <td>@subject.SubjectCode</td>
+                    <td>@subject.HeightCm</td>
+                    <td>@subject.WeightKg</td>
+                    <td>@subject.Gender</td>
+                    <td>@subject.Age</td>
+                    <td>@subject.BsaFormulaType</td>
+                    <td>@subject.BsaResult.ToString("F2")</td>
+                    <td>@subject.CreatedUtc</td>
+                    <td><a asp-action="CreateSubject" asp-route-id="@subject.SubjectCode">View</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
